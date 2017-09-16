@@ -12,9 +12,9 @@ namespace BLL
     public class BannerBLL
     {
         BannerDAL bannerDAL = new BannerDAL();
-        public List<BannerDto> getListByType(string type)
+        public List<BannerDto> getList(string type, string status)
         {
-            List<Banner> bannerList = bannerDAL.getListByType(type);
+            List<Banner> bannerList = bannerDAL.getList(type, status);
             List<BannerDto> bannerDtoList = new List<BannerDto>();
             Mapper.Initialize(cfg =>
             {

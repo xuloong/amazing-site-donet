@@ -20,12 +20,12 @@ namespace API.Controllers
         /// <param name="type">类别（P:PC端;H:H5端）</param>
         /// <returns></returns>
         [HttpGet, Route("banners")]
-        public Result<List<BannerDto>> Get(string type)
+        public Result<List<BannerDto>> Get(string type = "", string status = "")
         {            
             Result<List<BannerDto>> result = new Result<List<BannerDto>>();
             try
             {
-                List<BannerDto> bannerDtoList = bannerBLL.getListByType(type);
+                List<BannerDto> bannerDtoList = bannerBLL.getList(type, status);
                 result.succeed(bannerDtoList);
             }
             catch (Exception e)
