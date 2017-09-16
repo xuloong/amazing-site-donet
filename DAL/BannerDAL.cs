@@ -39,6 +39,7 @@ namespace DAL
         public int insert(Banner banner)
         {
             banner.CreateTime = DateTime.Now;
+            banner.DeleteFlag = "N";
             db.Banner.Add(banner);
             return db.SaveChanges() > 0 ? 1 : 0;
         }
