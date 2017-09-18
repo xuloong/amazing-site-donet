@@ -10,12 +10,6 @@ namespace DAL
 {
     public class BannerDAL : ORMBase<DbEntities>
     {
-
-        public List<Banner> getListByType(string type)
-        {
-            return db.Banner.Where(m => m.Type == type && m.Status == "Y" && m.DeleteFlag == "N").ToList<Banner>();
-        }
-
         public List<Banner> getList(string type, string status)
         {
             Expression<Func<Banner, bool>> predicate = PredicateExtensionses.True<Banner>();
@@ -28,7 +22,7 @@ namespace DAL
             {
                 predicate = predicate.And(m => m.Status == status);
             }
-            return db.Banner.Where(predicate).ToList<Banner>();
+            return db.Banner.Where(predicate).OrderBy(m => m.OrderByNum).ToList<Banner>();
         }
 
         public Banner getById(int id)
@@ -67,6 +61,5 @@ namespace DAL
                 return 0;
             }
         }
-
     }
 }

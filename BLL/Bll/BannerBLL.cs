@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
-using BLL.Dto;
 using AutoMapper;
 
 namespace BLL
@@ -25,6 +24,17 @@ namespace BLL
                 bannerDtoList.Add(bannerDto);
             }
             return bannerDtoList;
+        }
+
+        public BannerDto getById(int id)
+        {
+            Banner banner = bannerDAL.getById(id);
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Banner, BannerDto>();
+            });
+            BannerDto bannerDto = Mapper.Map<BannerDto>(banner);
+            return bannerDto;
         }
 
         public BannerDto insert(BannerDto bannerDto, int createUserId)

@@ -5,11 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL;
-using BLL.Dto;
 using Common;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Banner API
+    /// </summary>
     public class BannersController : ApiController
     {
         BannerBLL bannerBLL = new BannerBLL();
@@ -33,6 +35,27 @@ namespace API.Controllers
                 result.fail(e.Message);
             }
            return result;
+        }
+
+        /// <summary>
+        /// 获取Banner详情
+        /// </summary>
+        /// <param name="id">BannerID</param>
+        /// <returns></returns>
+        [HttpGet, Route("articles")]
+        public Result<BannerDto> Get(int id)
+        {
+            Result<BannerDto> result = new Result<BannerDto>();
+            try
+            {
+                BannerDto bannerDto = bannerBLL.getById(id);
+                result.succeed(bannerDto);
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
         }
 
         /// <summary>

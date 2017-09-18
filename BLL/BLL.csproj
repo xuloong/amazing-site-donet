@@ -52,8 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BannerBLL.cs" />
+    <Compile Include="Bll\ArticalBLL.cs" />
+    <Compile Include="Bll\BannerBLL.cs" />
+    <Compile Include="Bll\MenuBLL.cs" />
+    <Compile Include="Bll\SuggestionBLL.cs" />
+    <Compile Include="Dto\ArticalDto.cs" />
     <Compile Include="Dto\BannerDto.cs" />
+    <Compile Include="Dto\MenuDto.cs" />
+    <Compile Include="Dto\SuggestionDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
