@@ -21,13 +21,75 @@ namespace API.Controllers
         /// <param name="parentId">父ID</param>
         /// <returns></returns>
         [HttpGet, Route("menus")]
-        public Result<List<MenuDto>> Get(int? parentId = null)
+        public Result<List<MenuDto>> Get(int? parentId = null, string callback = "")
         {
             Result<List<MenuDto>> result = new Result<List<MenuDto>>();
             try
             {
                 List<MenuDto> menuDtoList = menuBLL.getList(parentId);
                 result.succeed(menuDtoList);
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 新增菜单
+        /// </summary>
+        /// <param name="menu">菜单对象</param>
+        /// <returns></returns>
+        [HttpPost, Route("menus")]
+        public Result<MenuDto> Post([FromBody]MenuDto menu, string callback = "")
+        {
+            Result<MenuDto> result = new Result<MenuDto>();
+            try
+            {
+                result.succeed(menuBLL.insert(menu, 1));
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 修改菜单
+        /// </summary>
+        /// <param name="id">菜单ID</param>
+        /// <param name="article">菜单对象</param>
+        /// <returns></returns>
+        [HttpPut, Route("menus")]
+        public Result<MenuDto> Put(int id, [FromBody]MenuDto menu, string callback = "")
+        {
+            Result<MenuDto> result = new Result<MenuDto>();
+            try
+            {
+                menu.Id = id;
+                result.succeed(menuBLL.update(menu, 1));
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 删除菜单
+        /// </summary>
+        /// <param name="id">菜单ID</param>
+        /// <returns>1:删除成功;0:删除失败</returns>
+        [HttpDelete, Route("menus")]
+        public Result<int> Delete(int id, string callback = "")
+        {
+            Result<int> result = new Result<int>();
+            try
+            {
+                result.succeed(menuBLL.delete(id, 1));
             }
             catch (Exception e)
             {

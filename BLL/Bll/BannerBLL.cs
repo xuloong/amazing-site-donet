@@ -14,15 +14,11 @@ namespace BLL
         public List<BannerDto> getList(string type, string status)
         {
             List<Banner> bannerList = bannerDAL.getList(type, status);
-            List<BannerDto> bannerDtoList = new List<BannerDto>();
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Banner, BannerDto>();
             });
-            foreach (Banner banner in bannerList){
-                BannerDto bannerDto = Mapper.Map<BannerDto>(banner);
-                bannerDtoList.Add(bannerDto);
-            }
+            List<BannerDto> bannerDtoList = Mapper.Map<List<BannerDto>>(bannerList);
             return bannerDtoList;
         }
 

@@ -14,16 +14,11 @@ namespace BLL
         public List<MenuDto> getList(int? parentId)
         {
             List<Menu> menuList = menuDAL.getList(parentId);
-            List<MenuDto> menuDtoList = new List<MenuDto>();
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Menu, MenuDto>();
             });
-            foreach (Menu menu in menuList)
-            {
-                MenuDto menuDto = Mapper.Map<MenuDto>(menu);
-                menuDtoList.Add(menuDto);
-            }
+            List<MenuDto> menuDtoList = Mapper.Map<List<MenuDto>>(menuList);
             List<MenuDto> newMenuDtoList = new List<MenuDto>();
             foreach (MenuDto menuDto in menuDtoList)
             {
@@ -54,6 +49,65 @@ namespace BLL
                 return null;
             else
                 return subMenuDtoList;
+        }
+
+        public MenuDto getById(int id)
+        {
+            Menu menu = menuDAL.getById(id);
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Banner, MenuDto>();
+            });
+            MenuDto menuDto = Mapper.Map<MenuDto>(menu);
+            return menuDto;
+        }
+
+        public MenuDto insert(MenuDto menuDto, int createUserId)
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<MenuDto, Menu>();
+            });
+            Menu menu = Mapper.Map<Menu>(menuDto);
+            menu.CreateUserId = createUserId;
+            if (menuDAL.insert(menu) > 0)
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<Menu, MenuDto>();
+                });
+                return Mapper.Map<MenuDto>(menu);
+            }
+            else
+                return null;
+        }
+
+        public MenuDto update(MenuDto menuDto, int updateUserId)
+        {
+            Menu menu = menuDAL.getById(menuDto.Id);
+            menu.Name = menuDto.Name;
+            menu.ParentId = menuDto.ParentId;
+            menu.ArticleId = menuDto.ArticleId;
+            menu.OrderByNum = menuDto.OrderByNum;
+            menu.UpdateUserId = updateUserId;
+            if (menuDAL.update(menu) > 0)
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<Menu, MenuDto>();
+                });
+                return Mapper.Map<MenuDto>(menu);
+            }
+            else
+                return null;
+        }
+
+        public int delete(int id, int deleteUserId)
+        {
+            if (menuDAL.delete(id, deleteUserId) > 0)
+                return 1;
+            else
+                return 0;
         }
     }
 }

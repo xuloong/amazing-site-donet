@@ -33,26 +33,26 @@ namespace DAL
             return result;
         }
 
-        public IQueryable<T> getPageList<Tkey>(int pageSize, int pageIndex, out int total, Expression<Func<T, bool>> whereLambda, Func<T, Tkey> orderbyLambda, bool isAsc)
-        {
-            total = db.Set<T>().Where(whereLambda).Count();
-            if (isAsc)
-            {
-                var temp = db.Set<T>().Where(whereLambda)
-                             .OrderBy<T, Tkey>(orderbyLambda)
-                             .Skip(pageSize * (pageIndex - 1))
-                             .Take(pageSize);
-                return temp.AsQueryable();
-            }
-            else
-            {
-                var temp = db.Set<T>().Where(whereLambda)
-                           .OrderByDescending<T, Tkey>(orderbyLambda)
-                           .Skip(pageSize * (pageIndex - 1))
-                           .Take(pageSize);
-                return temp.AsQueryable();
-            }
-        }  
+        //public IQueryable<T> getPageList<Tkey>(int pageSize, int pageIndex, out int total, Expression<Func<T, bool>> whereLambda, Func<T, Tkey> orderbyLambda, bool isAsc)
+        //{
+        //    total = db.Set<T>().Where(whereLambda).Count();
+        //    if (isAsc)
+        //    {
+        //        var temp = db.Set<T>().Where(whereLambda)
+        //                     .OrderBy<T, Tkey>(orderbyLambda)
+        //                     .Skip(pageSize * (pageIndex - 1))
+        //                     .Take(pageSize);
+        //        return temp.AsQueryable();
+        //    }
+        //    else
+        //    {
+        //        var temp = db.Set<T>().Where(whereLambda)
+        //                   .OrderByDescending<T, Tkey>(orderbyLambda)
+        //                   .Skip(pageSize * (pageIndex - 1))
+        //                   .Take(pageSize);
+        //        return temp.AsQueryable();
+        //    }
+        //}  
 
         private void WriteErrorLog(string errorDetail)
         {

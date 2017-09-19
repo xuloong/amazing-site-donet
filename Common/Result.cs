@@ -23,6 +23,11 @@ namespace Common
         public string Message { get; set; }
 
         /// <summary>
+        /// 返回总数
+        /// </summary>
+        public int Total { get; set; }
+
+        /// <summary>
         /// 返回数据集
         /// </summary>
         public T Data { get; set; }
