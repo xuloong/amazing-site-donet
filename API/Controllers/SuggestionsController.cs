@@ -19,6 +19,7 @@ namespace API.Controllers
         /// <param name="pageIndex">页数</param>
         /// <param name="keywords">关键字</param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet, Route("suggestions")]
         public Result<List<SuggestionDto>> Get(int pageSize, int pageIndex, string keywords = "", string callback = "")
         {
@@ -29,6 +30,27 @@ namespace API.Controllers
                 List<SuggestionDto> suggestionDtoList = suggestionBLL.getPageList(pageSize, pageIndex, out total, keywords);
                 result.Total = total;
                 result.succeed(suggestionDtoList);
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取建议详情
+        /// </summary>
+        /// <param name="id">建议ID</param>
+        /// <returns></returns>
+        [HttpGet, Route("suggestions")]
+        public Result<SuggestionDto> Get(int id, string callback = "")
+        {
+            Result<SuggestionDto> result = new Result<SuggestionDto>();
+            try
+            {
+                SuggestionDto suggestionDto = suggestionBLL.getById(id);
+                result.succeed(suggestionDto);
             }
             catch (Exception e)
             {
@@ -62,13 +84,14 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">建议ID</param>
         /// <returns>1:删除成功;0:删除失败</returns>
+        [Authorize]
         [HttpDelete, Route("suggestions")]
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
             try
             {
-                result.succeed(suggestionBLL.delete(id, 1));
+                result.succeed(suggestionBLL.delete(id, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {

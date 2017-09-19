@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BLL;
 using Common;
+using System.Web;
 
 namespace API.Controllers
 {
@@ -64,13 +65,14 @@ namespace API.Controllers
         /// </summary>
         /// <param name="banner">Banner对象</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost, Route("banners")]
         public Result<BannerDto> Post([FromBody]BannerDto banner, string callback = "")
         {
             Result<BannerDto> result = new Result<BannerDto>();
             try
             {
-                result.succeed(bannerBLL.insert(banner, 1));
+                result.succeed(bannerBLL.insert(banner, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {
@@ -85,6 +87,7 @@ namespace API.Controllers
         /// <param name="id">BannerID</param>
         /// <param name="banner">Banner对象</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut, Route("banners")]
         public Result<BannerDto> Put(int id, [FromBody]BannerDto banner, string callback = "")
         {
@@ -92,7 +95,7 @@ namespace API.Controllers
             try
             {
                 banner.Id = id;
-                result.succeed(bannerBLL.update(banner, 1));
+                result.succeed(bannerBLL.update(banner, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {
@@ -106,13 +109,14 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">BannerID</param>
         /// <returns>1:删除成功;0:删除失败</returns>
+        [Authorize]
         [HttpDelete, Route("banners")]
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
             try
             {
-                result.succeed(bannerBLL.delete(id, 1));
+                result.succeed(bannerBLL.delete(id, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {

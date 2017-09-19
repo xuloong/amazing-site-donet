@@ -63,13 +63,14 @@ namespace API.Controllers
         /// </summary>
         /// <param name="article">文章对象</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost, Route("articles")]
         public Result<ArticleDto> Post([FromBody]ArticleDto article, string callback = "")
         {
             Result<ArticleDto> result = new Result<ArticleDto>();
             try
             {
-                result.succeed(articleBLL.insert(article, 1));
+                result.succeed(articleBLL.insert(article, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {
@@ -84,6 +85,7 @@ namespace API.Controllers
         /// <param name="id">文章ID</param>
         /// <param name="article">文章对象</param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut, Route("articles")]
         public Result<ArticleDto> Put(int id, [FromBody]ArticleDto article, string callback = "")
         {
@@ -91,7 +93,7 @@ namespace API.Controllers
             try
             {
                 article.Id = id;
-                result.succeed(articleBLL.update(article, 1));
+                result.succeed(articleBLL.update(article, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {
@@ -105,13 +107,14 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">文章ID</param>
         /// <returns>1:删除成功;0:删除失败</returns>
+        [Authorize]
         [HttpDelete, Route("menus")]
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
             try
             {
-                result.succeed(articleBLL.delete(id, 1));
+                result.succeed(articleBLL.delete(id, int.Parse(HttpContext.Current.User.Identity.Name)));
             }
             catch (Exception e)
             {

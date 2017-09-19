@@ -27,6 +27,11 @@ namespace DAL
             return db.User.Where(M => M.Id == id).FirstOrDefault();
         }
 
+        public User getByUsername(string username)
+        {
+            return db.User.Where(M => M.Username == username).FirstOrDefault();
+        }
+
         public int insert(User user)
         {
             user.CreateTime = DateTime.Now;

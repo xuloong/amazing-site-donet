@@ -56,10 +56,12 @@
     <Compile Include="Bll\BannerBLL.cs" />
     <Compile Include="Bll\MenuBLL.cs" />
     <Compile Include="Bll\SuggestionBLL.cs" />
+    <Compile Include="Bll\UserBLL.cs" />
     <Compile Include="Dto\ArticalDto.cs" />
     <Compile Include="Dto\BannerDto.cs" />
     <Compile Include="Dto\MenuDto.cs" />
     <Compile Include="Dto\SuggestionDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
