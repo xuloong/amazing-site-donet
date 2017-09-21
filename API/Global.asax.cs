@@ -17,16 +17,15 @@ namespace API
         {
             //AreaRegistration.RegisterAllAreas();
 
+            //WebApi默认xml转json
+            //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+
             // 添加对jsonP格式的支持
-            GlobalConfiguration.Configuration.AddJsonpFormatter();
+            //GlobalConfiguration.Configuration.AddJsonpFormatter();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            //WebApi默认xml转json
-            //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
-
         }
     }
 }
