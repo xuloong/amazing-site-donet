@@ -16,6 +16,7 @@ namespace DAL
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Remark { get; set; }
         public Nullable<int> ParentId { get; set; }
         public Nullable<int> ArticleId { get; set; }
         public Nullable<int> OrderByNum { get; set; }

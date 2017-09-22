@@ -7,9 +7,10 @@
       <Diagram DiagramId="988043ef4b05481882b9d7d8aec2a74b" Name="Diagram1">
         <EntityTypeShape EntityType="DbModel.Banner" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DbModel.Article" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DbModel.Menu" Width="1.5" PointX="3.375" PointY="4.75" />
         <EntityTypeShape EntityType="DbModel.Suggestion" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DbModel.Dictionary" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DbModel.Menu" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
