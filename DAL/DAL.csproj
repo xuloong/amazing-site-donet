@@ -58,6 +58,7 @@
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Dal\BannerDAL.cs" />
+    <Compile Include="Dal\DictionaryDAL.cs" />
     <Compile Include="Dal\UserDAL.cs" />
     <Compile Include="DbModel.Context.cs">
       <AutoGen>True</AutoGen>

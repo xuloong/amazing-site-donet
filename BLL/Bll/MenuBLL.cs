@@ -56,7 +56,7 @@ namespace BLL
             Menu menu = menuDAL.getById(id);
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Banner, MenuDto>();
+                cfg.CreateMap<Menu, MenuDto>();
             });
             MenuDto menuDto = Mapper.Map<MenuDto>(menu);
             return menuDto;
@@ -72,6 +72,8 @@ namespace BLL
             menu.CreateUserId = createUserId;
             if (menuDAL.insert(menu) > 0)
             {
+                DictionaryBLL dictionaryBLL = new DictionaryBLL();
+                dictionaryBLL.upVersion("menu_version");
                 Mapper.Initialize(cfg =>
                 {
                     cfg.CreateMap<Menu, MenuDto>();
@@ -92,6 +94,8 @@ namespace BLL
             menu.UpdateUserId = updateUserId;
             if (menuDAL.update(menu) > 0)
             {
+                DictionaryBLL dictionaryBLL = new DictionaryBLL();
+                dictionaryBLL.upVersion("menu_version");
                 Mapper.Initialize(cfg =>
                 {
                     cfg.CreateMap<Menu, MenuDto>();

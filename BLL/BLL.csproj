@@ -54,11 +54,13 @@
   <ItemGroup>
     <Compile Include="Bll\ArticalBLL.cs" />
     <Compile Include="Bll\BannerBLL.cs" />
+    <Compile Include="Bll\DictionaryBLL.cs" />
     <Compile Include="Bll\MenuBLL.cs" />
     <Compile Include="Bll\SuggestionBLL.cs" />
     <Compile Include="Bll\UserBLL.cs" />
     <Compile Include="Dto\ArticalDto.cs" />
     <Compile Include="Dto\BannerDto.cs" />
+    <Compile Include="Dto\DictionaryDto.cs" />
     <Compile Include="Dto\MenuDto.cs" />
     <Compile Include="Dto\SuggestionDto.cs" />
     <Compile Include="Dto\UserDto.cs" />

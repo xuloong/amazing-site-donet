@@ -198,6 +198,7 @@
     <Compile Include="App_Start\SwaggerNet.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\BannersController.cs" />
+    <Compile Include="Controllers\DictionarysController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\SuggestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

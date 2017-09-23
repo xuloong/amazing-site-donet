@@ -37,6 +37,27 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// 获取菜单详情
+        /// </summary>
+        /// <param name="id">菜单ID</param>
+        /// <returns></returns>
+        [HttpGet, Route("menus")]
+        public Result<MenuDto> Get(int id, string callback = "")
+        {
+            Result<MenuDto> result = new Result<MenuDto>();
+            try
+            {
+                MenuDto menuDto = menuBLL.getById(id);
+                result.succeed(menuDto);
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 新增菜单
         /// </summary>
         /// <param name="menu">菜单对象</param>
