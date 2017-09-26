@@ -61,6 +61,7 @@
     <Compile Include="Dto\ArticalDto.cs" />
     <Compile Include="Dto\BannerDto.cs" />
     <Compile Include="Dto\DictionaryDto.cs" />
+    <Compile Include="Dto\FileDto.cs" />
     <Compile Include="Dto\MenuDto.cs" />
     <Compile Include="Dto\SuggestionDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
