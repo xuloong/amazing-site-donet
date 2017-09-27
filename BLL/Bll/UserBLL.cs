@@ -24,12 +24,13 @@ namespace BLL
                 });
                 UserDto userDto = Mapper.Map<UserDto>(user);
 
-                //user.Token = Guid.NewGuid().ToString();
-                //user.Expires = DateTime.Now.AddDays(1);
-                //userDAL.update(user);
+                user.Token = Guid.NewGuid().ToString();
+                user.Expires = DateTime.Now.AddDays(1);
+                userDAL.update(user);
 
-                //userDto.Token = user.Token;
-                //userDto.ExpiresIn = 86400;
+                userDto.Token = user.Token;
+                TimeSpan timeSpan = (DateTime)user.Expires - DateTime.Now;
+                userDto.ExpiresIn = (int)timeSpan.TotalSeconds;
 
                 return userDto;
             }
@@ -58,6 +59,24 @@ namespace BLL
             userDAL.update(user);
             return 1;
 
+        }
+
+        public UserDto getByToken(string token)
+        {
+            User user = userDAL.getByToken(token);
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<User, UserDto>();
+            });
+            UserDto userDto = Mapper.Map<UserDto>(user);
+            TimeSpan timeSpan = (DateTime)user.Expires - DateTime.Now;
+            userDto.ExpiresIn = (int)timeSpan.TotalSeconds;
+
+            if (userDto.ExpiresIn <= 0)
+            {
+                return null;
+            }
+            return userDto;
         }
     }
 }

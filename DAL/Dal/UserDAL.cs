@@ -32,6 +32,11 @@ namespace DAL
             return db.User.Where(M => M.Username == username).FirstOrDefault();
         }
 
+        public User getByToken(string token)
+        {
+            return db.User.Where(M => M.Token == token).FirstOrDefault();
+        }
+
         public int insert(User user)
         {
             user.CreateTime = DateTime.Now;

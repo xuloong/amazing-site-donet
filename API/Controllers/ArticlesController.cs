@@ -19,7 +19,7 @@ namespace API.Controllers
         /// <param name="pageIndex">页数</param>
         /// <param name="keywords">关键字</param>
         /// <returns></returns>
-        [HttpGet, Route("articles")]
+        [HttpGet, Route("api/articles")]
         public Result<List<ArticleDto>> Get(int pageSize, int pageIndex, string keywords = "", string callback = "")
         {
             Result<List<ArticleDto>> result = new Result<List<ArticleDto>>();
@@ -42,7 +42,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">文章ID</param>
         /// <returns></returns>
-        [HttpGet, Route("articles")]
+        [HttpGet, Route("api/articles/{id}")]
         public Result<ArticleDto> Get(int id, string callback = "")
         {
             Result<ArticleDto> result = new Result<ArticleDto>();
@@ -63,14 +63,19 @@ namespace API.Controllers
         /// </summary>
         /// <param name="article">文章对象</param>
         /// <returns></returns>
-        [Authorize]
-        [HttpPost, Route("articles")]
+        //[Authorize]
+        [HttpPost, Route("api/articles")]
         public Result<ArticleDto> Post([FromBody]ArticleDto article, string callback = "")
         {
             Result<ArticleDto> result = new Result<ArticleDto>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
-                result.succeed(articleBLL.insert(article, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(articleBLL.insert(article, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {
@@ -85,15 +90,20 @@ namespace API.Controllers
         /// <param name="id">文章ID</param>
         /// <param name="article">文章对象</param>
         /// <returns></returns>
-        [Authorize]
-        [HttpPut, Route("articles")]
+        //[Authorize]
+        [HttpPut, Route("api/articles/{id}")]
         public Result<ArticleDto> Put(int id, [FromBody]ArticleDto article, string callback = "")
         {
             Result<ArticleDto> result = new Result<ArticleDto>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
                 article.Id = id;
-                result.succeed(articleBLL.update(article, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(articleBLL.update(article, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {
@@ -107,14 +117,19 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">文章ID</param>
         /// <returns>1:删除成功;0:删除失败</returns>
-        [Authorize]
-        [HttpDelete, Route("menus")]
+        //[Authorize]
+        [HttpDelete, Route("api/articles/{id}")]
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
-                result.succeed(articleBLL.delete(id, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(articleBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {

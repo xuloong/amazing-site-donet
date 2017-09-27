@@ -18,7 +18,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="key">字典key</param>
         /// <returns></returns>
-        [HttpGet, Route("dictionarys")]
+        [HttpGet, Route("api/dictionarys/{key}")]
         public Result<DictionaryDto> Get(string key, string callback = "")
         {
             Result<DictionaryDto> result = new Result<DictionaryDto>();

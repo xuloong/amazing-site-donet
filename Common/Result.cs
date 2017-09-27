@@ -51,5 +51,11 @@ namespace Common
             this.Message = "error:" + message;
         }
 
+        public void unauthorized()
+        {
+            this.Code = 401;
+            this.Message = "unauthorized";
+        }
+
     }
 }

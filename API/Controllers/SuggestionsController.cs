@@ -19,11 +19,16 @@ namespace API.Controllers
         /// <param name="pageIndex">页数</param>
         /// <param name="keywords">关键字</param>
         /// <returns></returns>
-        [Authorize]
-        [HttpGet, Route("suggestions")]
+        //[Authorize]
+        [HttpGet, Route("api/suggestions")]
         public Result<List<SuggestionDto>> Get(int pageSize, int pageIndex, string keywords = "", string callback = "")
         {
             Result<List<SuggestionDto>> result = new Result<List<SuggestionDto>>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
                 int total;
@@ -43,10 +48,16 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">建议ID</param>
         /// <returns></returns>
-        [HttpGet, Route("suggestions")]
+        //[Authorize]
+        [HttpGet, Route("api/suggestions/{id}")]
         public Result<SuggestionDto> Get(int id, string callback = "")
         {
             Result<SuggestionDto> result = new Result<SuggestionDto>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
                 SuggestionDto suggestionDto = suggestionBLL.getById(id);
@@ -64,7 +75,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="suggestion">建议对象</param>
         /// <returns></returns>
-        [HttpPost, Route("suggestions")]
+        [HttpPost, Route("api/suggestions")]
         public Result<SuggestionDto> Post([FromBody]SuggestionDto suggestion, string callback = "")
         {
             Result<SuggestionDto> result = new Result<SuggestionDto>();
@@ -84,14 +95,19 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">建议ID</param>
         /// <returns>1:删除成功;0:删除失败</returns>
-        [Authorize]
-        [HttpDelete, Route("suggestions")]
+        //[Authorize]
+        [HttpDelete, Route("api/suggestions/{id}")]
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
-                result.succeed(suggestionBLL.delete(id, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(suggestionBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {

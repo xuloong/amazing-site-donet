@@ -13,7 +13,7 @@ namespace API
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();
-            ConfigureOAuth(app);
+            //ConfigureOAuth(app);
 
             //WebApi默认xml转json
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();

@@ -20,7 +20,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="parentId">父ID</param>
         /// <returns></returns>
-        [HttpGet, Route("menus")]
+        [HttpGet, Route("api/menus")]
         public Result<List<MenuDto>> Get(int? parentId = null, string callback = "")
         {
             Result<List<MenuDto>> result = new Result<List<MenuDto>>();
@@ -41,7 +41,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">菜单ID</param>
         /// <returns></returns>
-        [HttpGet, Route("menus")]
+        [HttpGet, Route("api/menus/{id}")]
         public Result<MenuDto> Get(int id, string callback = "")
         {
             Result<MenuDto> result = new Result<MenuDto>();
@@ -62,14 +62,19 @@ namespace API.Controllers
         /// </summary>
         /// <param name="menu">菜单对象</param>
         /// <returns></returns>
-        [Authorize]
-        [HttpPost, Route("menus")]
+        //[Authorize]
+        [HttpPost, Route("api/menus")]
         public Result<MenuDto> Post([FromBody]MenuDto menu, string callback = "")
         {
             Result<MenuDto> result = new Result<MenuDto>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
-                result.succeed(menuBLL.insert(menu, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(menuBLL.insert(menu, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {
@@ -84,15 +89,20 @@ namespace API.Controllers
         /// <param name="id">菜单ID</param>
         /// <param name="article">菜单对象</param>
         /// <returns></returns>
-        [Authorize]
-        [HttpPut, Route("menus")]
+        //[Authorize]
+        [HttpPut, Route("api/menus/{id}")]
         public Result<MenuDto> Put(int id, [FromBody]MenuDto menu, string callback = "")
         {
             Result<MenuDto> result = new Result<MenuDto>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
                 menu.Id = id;
-                result.succeed(menuBLL.update(menu, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(menuBLL.update(menu, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {
@@ -106,14 +116,19 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">菜单ID</param>
         /// <returns>1:删除成功;0:删除失败</returns>
-        [Authorize]
-        [HttpDelete, Route("menus")]
+        //[Authorize]
+        [HttpDelete, Route("api/menus/{id}")]
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
-                result.succeed(menuBLL.delete(id, int.Parse(HttpContext.Current.User.Identity.Name)));
+                result.succeed(menuBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
             }
             catch (Exception e)
             {

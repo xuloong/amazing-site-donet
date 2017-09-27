@@ -22,7 +22,7 @@ namespace API
             if (userDto == null)
             {
                 context.SetError("invalid_grant", "The username or password is incorrect.");
-                return;
+                return; 
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);

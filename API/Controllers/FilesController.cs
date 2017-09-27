@@ -20,11 +20,15 @@ namespace API.Controllers
         /// </summary>
         /// <returns></returns>
         //[Authorize]
-        [HttpPost, Route("files")]
+        [HttpPost, Route("api/files")]
         public async Task<Result<FileDto>> PostFile()
         {
             Result<FileDto> result = new Result<FileDto>();
-
+            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            {
+                result.unauthorized();
+                return result;
+            }
             try
             {
                 if (!Request.Content.IsMimeMultipartContent())

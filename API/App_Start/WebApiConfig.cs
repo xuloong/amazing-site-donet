@@ -11,11 +11,12 @@ namespace API
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+            config.MapHttpAttributeRoutes();
 
             //驼峰
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
