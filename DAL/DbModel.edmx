@@ -89,6 +89,8 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
           <Property Name="AdminFlag" Type="char" MaxLength="1" />
+          <Property Name="Token" Type="varchar" MaxLength="50" />
+          <Property Name="Expires" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="CreateUserId" Type="int" />
           <Property Name="UpdateTime" Type="datetime" />
@@ -131,9 +133,9 @@
           <EntitySet Name="Banner" EntityType="Self.Banner" />
           <EntitySet Name="Article" EntityType="DbModel.Article" />
           <EntitySet Name="Suggestion" EntityType="DbModel.Suggestion" />
-          <EntitySet Name="User" EntityType="DbModel.User" />
           <EntitySet Name="Dictionary" EntityType="DbModel.Dictionary" />
           <EntitySet Name="Menu" EntityType="DbModel.Menu" />
+          <EntitySet Name="User" EntityType="DbModel.User" />
         </EntityContainer>
         <EntityType Name="Article">
           <Key>
@@ -166,24 +168,6 @@
           <Property Name="DeleteTime" Type="DateTime" Precision="3" />
           <Property Name="DeleteUserId" Type="Int32" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="AdminFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateUserId" Type="Int32" />
-          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateUserId" Type="Int32" />
-          <Property Name="DeleteFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
-          <Property Name="DeleteUserId" Type="Int32" />
-        </EntityType>
         <EntityType Name="Dictionary">
           <Key>
             <PropertyRef Name="Key" />
@@ -201,6 +185,26 @@
           <Property Name="ParentId" Type="Int32" />
           <Property Name="ArticleId" Type="Int32" />
           <Property Name="OrderByNum" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUserId" Type="Int32" />
+          <Property Name="DeleteFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
+          <Property Name="DeleteUserId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AdminFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Expires" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="CreateUserId" Type="Int32" />
           <Property Name="UpdateTime" Type="DateTime" Precision="3" />
@@ -267,25 +271,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="DbModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="DeleteUserId" ColumnName="DeleteUserId" />
-                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
-                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
-                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="AdminFlag" ColumnName="AdminFlag" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Dictionary">
             <EntityTypeMapping TypeName="DbModel.Dictionary">
               <MappingFragment StoreEntitySet="Dictionary">
@@ -309,6 +294,27 @@
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="DbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="DeleteUserId" ColumnName="DeleteUserId" />
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="AdminFlag" ColumnName="AdminFlag" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

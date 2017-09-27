@@ -13,14 +13,13 @@ using System.Text;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
     public class FilesController : ApiController
     {
         /// <summary>
         /// 通过multipart/form-data方式上传文件
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [HttpPost, Route("files")]
         public async Task<Result<FileDto>> PostFile()
         {
@@ -62,7 +61,7 @@ namespace API.Controllers
                     {
                         string fileExt = orfilename.Substring(orfilename.LastIndexOf('.'));
                         
-                        String fileTypes = "jpg,png,bmp,gif";
+                        String fileTypes = "jpg,jpeg,png,bmp,gif";
                         if (String.IsNullOrEmpty(fileExt) || Array.IndexOf(fileTypes.Split(','), fileExt.Substring(1).ToLower()) == -1)
                         {
                             result.fail("图片类型不正确");
@@ -73,7 +72,7 @@ namespace API.Controllers
                             String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", System.Globalization.DateTimeFormatInfo.InvariantInfo);
 
                             fileInfo.CopyTo(Path.Combine(root, newFileName + fileExt), true);
-                            sb.Append("/UploadFiles/" + newFileName + fileExt);
+                            sb.Append("http://" + HttpContext.Current.Request.Url.Host + "/UploadFiles/" + newFileName + fileExt);
                             FileDto fileDto = new FileDto();
                             fileDto.Url = sb.ToString();
                             result.succeed(fileDto);

@@ -28,8 +28,8 @@ namespace DAL
         public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<Suggestion> Suggestion { get; set; }
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Dictionary> Dictionary { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

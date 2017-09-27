@@ -23,6 +23,14 @@ namespace BLL
                     cfg.CreateMap<User, UserDto>();
                 });
                 UserDto userDto = Mapper.Map<UserDto>(user);
+
+                //user.Token = Guid.NewGuid().ToString();
+                //user.Expires = DateTime.Now.AddDays(1);
+                //userDAL.update(user);
+
+                //userDto.Token = user.Token;
+                //userDto.ExpiresIn = 86400;
+
                 return userDto;
             }
             else

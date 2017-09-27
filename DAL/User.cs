@@ -20,6 +20,8 @@ namespace DAL
         public string Name { get; set; }
         public string Status { get; set; }
         public string AdminFlag { get; set; }
+        public string Token { get; set; }
+        public Nullable<System.DateTime> Expires { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> CreateUserId { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }

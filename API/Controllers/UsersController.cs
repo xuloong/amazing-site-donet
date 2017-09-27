@@ -33,6 +33,28 @@ namespace API.Controllers
             return result;
         }
 
+        ///// <summary>
+        ///// 登录
+        ///// </summary>
+        ///// <param name="username">用户名</param>
+        ///// <param name="password">密码</param>
+        ///// <returns></returns>
+        //[HttpGet, Route("users/login")]
+        //public Result<UserDto> Get(string username, string password, string callback = "")
+        //{
+        //    Result<UserDto> result = new Result<UserDto>();
+        //    try
+        //    {
+        //        UserDto userDto = userBLL.login(username, password);
+        //        result.succeed(userDto);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        result.fail(e.Message);
+        //    }
+        //    return result;
+        //}
+
         /// <summary>
         /// 修改密码
         /// </summary>

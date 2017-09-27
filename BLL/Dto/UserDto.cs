@@ -13,5 +13,7 @@ namespace BLL
         public string Password { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
+        public string Token { get; set; }
+        public int ExpiresIn { get; set; }
     }
 }
