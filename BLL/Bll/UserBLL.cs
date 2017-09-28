@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using AutoMapper;
+using Common;
 
 namespace BLL
 {
@@ -16,7 +17,9 @@ namespace BLL
         {
             User user = userDAL.getByUsername(username);
 
-            if (user != null && user.Password == password)
+            string passwordEncrypt = EncryptUtil.Password(password);
+
+            if (user != null && user.Password == passwordEncrypt)
             {
                 Mapper.Initialize(cfg =>
                 {
@@ -49,12 +52,16 @@ namespace BLL
             return userDto;
         }
 
-        public int updatePassword(int id, string password, int updateUserId)
+        public int changePassword(int id, string password, string newPassword, int updateUserId)
         {
+            string passwordEncrypt = EncryptUtil.Password(password);
+            string newPasswordEncrypt = EncryptUtil.Password(newPassword);
             User user = userDAL.getById(id);
             if (user == null)
                 return 0;
-            user.Password = password;
+            if (user.Password != passwordEncrypt)
+                return -1;
+            user.Password = newPasswordEncrypt;
             user.UpdateUserId = updateUserId;
             userDAL.update(user);
             return 1;

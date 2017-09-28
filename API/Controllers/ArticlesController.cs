@@ -68,14 +68,14 @@ namespace API.Controllers
         public Result<ArticleDto> Post([FromBody]ArticleDto article, string callback = "")
         {
             Result<ArticleDto> result = new Result<ArticleDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }
             try
             {
-                result.succeed(articleBLL.insert(article, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(articleBLL.insert(article, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
@@ -95,7 +95,7 @@ namespace API.Controllers
         public Result<ArticleDto> Put(int id, [FromBody]ArticleDto article, string callback = "")
         {
             Result<ArticleDto> result = new Result<ArticleDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
@@ -103,7 +103,7 @@ namespace API.Controllers
             try
             {
                 article.Id = id;
-                result.succeed(articleBLL.update(article, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(articleBLL.update(article, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
@@ -122,14 +122,14 @@ namespace API.Controllers
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }
             try
             {
-                result.succeed(articleBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(articleBLL.delete(id, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {

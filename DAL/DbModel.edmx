@@ -13,6 +13,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Abstract" Type="nvarchar" MaxLength="200" />
           <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="MenuId" Type="int" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="CreateUserId" Type="int" />
           <Property Name="UpdateTime" Type="datetime" />
@@ -131,28 +132,12 @@
         </EntityType>
         <EntityContainer Name="DbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Banner" EntityType="Self.Banner" />
-          <EntitySet Name="Article" EntityType="DbModel.Article" />
           <EntitySet Name="Suggestion" EntityType="DbModel.Suggestion" />
           <EntitySet Name="Dictionary" EntityType="DbModel.Dictionary" />
           <EntitySet Name="Menu" EntityType="DbModel.Menu" />
           <EntitySet Name="User" EntityType="DbModel.User" />
+          <EntitySet Name="Article" EntityType="DbModel.Article" />
         </EntityContainer>
-        <EntityType Name="Article">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Abstract" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateUserId" Type="Int32" />
-          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateUserId" Type="Int32" />
-          <Property Name="DeleteFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
-          <Property Name="DeleteUserId" Type="Int32" />
-        </EntityType>
         <EntityType Name="Suggestion">
           <Key>
             <PropertyRef Name="Id" />
@@ -213,6 +198,23 @@
           <Property Name="DeleteTime" Type="DateTime" Precision="3" />
           <Property Name="DeleteUserId" Type="Int32" />
         </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Abstract" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MenuId" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUserId" Type="Int32" />
+          <Property Name="DeleteFlag" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DeleteTime" Type="DateTime" Precision="3" />
+          <Property Name="DeleteUserId" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -235,23 +237,6 @@
                 <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
                 <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
                 <ScalarProperty Name="DeleteUserId" ColumnName="DeleteUserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Article">
-            <EntityTypeMapping TypeName="DbModel.Article">
-              <MappingFragment StoreEntitySet="Article">
-                <ScalarProperty Name="DeleteUserId" ColumnName="DeleteUserId" />
-                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
-                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
-                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Abstract" ColumnName="Abstract" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -315,6 +300,24 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Article">
+            <EntityTypeMapping TypeName="DbModel.Article">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="DeleteUserId" ColumnName="DeleteUserId" />
+                <ScalarProperty Name="DeleteTime" ColumnName="DeleteTime" />
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UpdateUserId" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Abstract" ColumnName="Abstract" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -11,13 +11,13 @@ namespace API
 {
     public static class LoginInfo
     {
-        public static int getUserId(AuthenticationHeaderValue token)
+        public static int getUserId(HttpRequestHeaders headers)
         {
             //return int.Parse(HttpContext.Current.User.Identity.Name);
             //return 1;
             try
             {
-                UserDto userDto = getCurrentUser(token);
+                UserDto userDto = getCurrentUser(headers);
                 if (userDto != null)
                     return userDto.Id;
                 else
@@ -29,12 +29,14 @@ namespace API
             }
         }
 
-        public static UserDto getCurrentUser(AuthenticationHeaderValue token)
+        public static UserDto getCurrentUser(HttpRequestHeaders headers)
         {
             try
             {
-                if (token == null)
+                string token;
+                if (headers == null || !headers.Contains("token"))
                     return null;
+                token = headers.GetValues("token").FirstOrDefault<string>().ToString();
                 UserBLL userBLL = new UserBLL();
                 return userBLL.getByToken(token.ToString());
             }
@@ -44,11 +46,11 @@ namespace API
             }
         }
 
-        public static bool Unauthorized(AuthenticationHeaderValue token)
+        public static bool Unauthorized(HttpRequestHeaders headers)
         {
             try
             {
-                UserDto userDto = getCurrentUser(token);
+                UserDto userDto = getCurrentUser(headers);
                 if (userDto != null)
                     return false;
                 else

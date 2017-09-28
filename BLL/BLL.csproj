@@ -60,6 +60,7 @@
     <Compile Include="Bll\UserBLL.cs" />
     <Compile Include="Dto\ArticalDto.cs" />
     <Compile Include="Dto\BannerDto.cs" />
+    <Compile Include="Dto\ChangePasswordDto.cs" />
     <Compile Include="Dto\DictionaryDto.cs" />
     <Compile Include="Dto\FileDto.cs" />
     <Compile Include="Dto\MenuDto.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{c12b1f8e-797a-474f-924f-3ae848e619db}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{9920ef1a-8ace-4752-9de2-e445ed8399ce}</Project>
       <Name>DAL</Name>

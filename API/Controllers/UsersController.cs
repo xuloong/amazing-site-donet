@@ -25,7 +25,7 @@ namespace API.Controllers
             Result<UserDto> result = new Result<UserDto>();
             try
             {
-                UserDto userDto = userBLL.getById(LoginInfo.getUserId(Request.Headers.Authorization));
+                UserDto userDto = userBLL.getById(LoginInfo.getUserId(Request.Headers));
                 result.succeed(userDto);
             }
             catch (Exception e)
@@ -42,12 +42,12 @@ namespace API.Controllers
         /// <returns></returns>
         //[Authorize]
         [HttpPatch, Route("api/users/me/password")]
-        public Result<int> PatchPassword([FromBody]UserDto userDto, string callback = "")
+        public Result<int> PatchPassword([FromBody]ChangePasswordDto changePasswordDto, string callback = "")
         {
             Result<int> result = new Result<int>();
             try
             {
-                result.succeed(userBLL.updatePassword(LoginInfo.getUserId(Request.Headers.Authorization), userDto.Password, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(userBLL.changePassword(LoginInfo.getUserId(Request.Headers), changePasswordDto.Password, changePasswordDto.NewPassword, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {

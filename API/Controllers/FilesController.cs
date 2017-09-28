@@ -24,7 +24,7 @@ namespace API.Controllers
         public async Task<Result<FileDto>> PostFile()
         {
             Result<FileDto> result = new Result<FileDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;

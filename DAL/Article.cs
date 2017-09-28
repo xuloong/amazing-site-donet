@@ -18,6 +18,7 @@ namespace DAL
         public string Title { get; set; }
         public string Abstract { get; set; }
         public string Content { get; set; }
+        public Nullable<int> MenuId { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> CreateUserId { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }

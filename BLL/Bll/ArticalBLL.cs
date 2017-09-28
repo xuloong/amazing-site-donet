@@ -50,6 +50,18 @@ namespace BLL
                 {
                     cfg.CreateMap<Article, ArticleDto>();
                 });
+
+                if (article.MenuId != null && article.MenuId != 0)
+                {
+                    MenuDAL menuDAL = new MenuDAL();
+                    Menu menu = menuDAL.getById((int)article.MenuId);
+                    if (menu != null)
+                    {
+                        menu.ArticleId = article.Id;
+                        menuDAL.update(menu);
+                    }
+                }
+
                 return Mapper.Map<ArticleDto>(article);
             }
             else

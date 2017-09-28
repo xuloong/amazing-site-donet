@@ -71,14 +71,14 @@ namespace API.Controllers
         public Result<BannerDto> Post([FromBody]BannerDto banner, string callback = "")
         {
             Result<BannerDto> result = new Result<BannerDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }                 
             try
             {
-                result.succeed(bannerBLL.insert(banner, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(bannerBLL.insert(banner, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
@@ -98,7 +98,7 @@ namespace API.Controllers
         public Result<BannerDto> Put(int id, [FromBody]BannerDto banner, string callback = "")
         {
             Result<BannerDto> result = new Result<BannerDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
@@ -106,7 +106,7 @@ namespace API.Controllers
             try
             {
                 banner.Id = id;
-                result.succeed(bannerBLL.update(banner, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(bannerBLL.update(banner, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
@@ -125,14 +125,14 @@ namespace API.Controllers
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }
             try
             {
-                result.succeed(bannerBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(bannerBLL.delete(id, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {

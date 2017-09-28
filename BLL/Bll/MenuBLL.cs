@@ -33,6 +33,17 @@ namespace BLL
             return newMenuDtoList;
         }
 
+        public List<MenuDto> getList()
+        {
+            List<Menu> menuList = menuDAL.getList(null);
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Menu, MenuDto>();
+            });
+            List<MenuDto> menuDtoList = Mapper.Map<List<MenuDto>>(menuList);
+            return menuDtoList;
+        }
+
         private List<MenuDto> getSubMenuList(List<MenuDto> menuDtoList, int? id)
         {
             List<MenuDto> subMenuDtoList = new List<MenuDto>();

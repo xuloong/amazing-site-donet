@@ -24,7 +24,7 @@ namespace API.Controllers
         public Result<List<SuggestionDto>> Get(int pageSize, int pageIndex, string keywords = "", string callback = "")
         {
             Result<List<SuggestionDto>> result = new Result<List<SuggestionDto>>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
@@ -53,7 +53,7 @@ namespace API.Controllers
         public Result<SuggestionDto> Get(int id, string callback = "")
         {
             Result<SuggestionDto> result = new Result<SuggestionDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
@@ -100,14 +100,14 @@ namespace API.Controllers
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }
             try
             {
-                result.succeed(suggestionBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(suggestionBLL.delete(id, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {

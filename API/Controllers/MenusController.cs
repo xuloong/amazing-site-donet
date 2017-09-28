@@ -16,7 +16,7 @@ namespace API.Controllers
         MenuBLL menuBLL = new MenuBLL();
 
         /// <summary>
-        /// 获取菜单列表
+        /// 获取菜单树
         /// </summary>
         /// <param name="parentId">父ID</param>
         /// <returns></returns>
@@ -27,6 +27,32 @@ namespace API.Controllers
             try
             {
                 List<MenuDto> menuDtoList = menuBLL.getList(parentId);
+                result.succeed(menuDtoList);
+            }
+            catch (Exception e)
+            {
+                result.fail(e.Message);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取菜单列表
+        /// </summary>
+        /// <returns></returns>
+        //[Authorize]
+        [HttpGet, Route("api/menus/list")]
+        public Result<List<MenuDto>> GetList(string callback = "")
+        {
+            Result<List<MenuDto>> result = new Result<List<MenuDto>>();
+            if (LoginInfo.Unauthorized(Request.Headers))
+            {
+                result.unauthorized();
+                return result;
+            }
+            try
+            {
+                List<MenuDto> menuDtoList = menuBLL.getList();
                 result.succeed(menuDtoList);
             }
             catch (Exception e)
@@ -67,14 +93,14 @@ namespace API.Controllers
         public Result<MenuDto> Post([FromBody]MenuDto menu, string callback = "")
         {
             Result<MenuDto> result = new Result<MenuDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }
             try
             {
-                result.succeed(menuBLL.insert(menu, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(menuBLL.insert(menu, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
@@ -94,7 +120,7 @@ namespace API.Controllers
         public Result<MenuDto> Put(int id, [FromBody]MenuDto menu, string callback = "")
         {
             Result<MenuDto> result = new Result<MenuDto>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
@@ -102,7 +128,7 @@ namespace API.Controllers
             try
             {
                 menu.Id = id;
-                result.succeed(menuBLL.update(menu, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(menuBLL.update(menu, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
@@ -121,14 +147,14 @@ namespace API.Controllers
         public Result<int> Delete(int id, string callback = "")
         {
             Result<int> result = new Result<int>();
-            if (LoginInfo.Unauthorized(Request.Headers.Authorization))
+            if (LoginInfo.Unauthorized(Request.Headers))
             {
                 result.unauthorized();
                 return result;
             }
             try
             {
-                result.succeed(menuBLL.delete(id, LoginInfo.getUserId(Request.Headers.Authorization)));
+                result.succeed(menuBLL.delete(id, LoginInfo.getUserId(Request.Headers)));
             }
             catch (Exception e)
             {
