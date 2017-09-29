@@ -10,13 +10,17 @@ namespace DAL
 {
     public class ArticleDAL : ORMBase<DbEntities>
     {
-        public List<Article> getPageList(int pageSize, int pageIndex, out int total, string keywords)
+        public List<Article> getPageList(int pageSize, int pageIndex, out int total, string keywords, int menuId)
         {
             Expression<Func<Article, bool>> predicate = PredicateExtensionses.True<Article>();
             predicate = predicate.And(m => m.DeleteFlag == "N");
             if (!string.IsNullOrEmpty(keywords))
             {
                 predicate = predicate.And(m => m.Title.Contains(keywords));
+            }
+            if (menuId != null && menuId != 0)
+            {
+                predicate = predicate.And(m => m.MenuId == menuId);
             }
             total = db.Article.Where(predicate).Count();
             return db.Article.Where(predicate).OrderByDescending(m => m.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList<Article>();

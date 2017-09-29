@@ -12,10 +12,10 @@ namespace BLL
     {
         ArticleDAL articleDAL = new ArticleDAL();
 
-        public List<ArticleDto> getPageList(int pageSize, int pageIndex, out int total, string keywords)
+        public List<ArticleDto> getPageList(int pageSize, int pageIndex, out int total, string keywords, int menuId)
         {
             int totalOut;
-            List<Article> articleList = articleDAL.getPageList(pageSize, pageIndex, out totalOut, keywords);
+            List<Article> articleList = articleDAL.getPageList(pageSize, pageIndex, out totalOut, keywords, menuId);
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Article, ArticleDto>();

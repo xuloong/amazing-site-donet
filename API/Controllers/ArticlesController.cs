@@ -18,15 +18,16 @@ namespace API.Controllers
         /// <param name="pageSize">每页条数</param>
         /// <param name="pageIndex">页数</param>
         /// <param name="keywords">关键字</param>
+        /// <param name="menuId">菜单ID</param>
         /// <returns></returns>
         [HttpGet, Route("api/articles")]
-        public Result<List<ArticleDto>> Get(int pageSize, int pageIndex, string keywords = "", string callback = "")
+        public Result<List<ArticleDto>> Get(int pageSize, int pageIndex, string keywords = "", int menuId = 0, string callback = "")
         {
             Result<List<ArticleDto>> result = new Result<List<ArticleDto>>();
             try
             {
                 int total;
-                List<ArticleDto> articleDtoList = articleBLL.getPageList(pageSize, pageIndex, out total, keywords);
+                List<ArticleDto> articleDtoList = articleBLL.getPageList(pageSize, pageIndex, out total, keywords, menuId);
                 result.Total = total;
                 result.succeed(articleDtoList);
             }
